@@ -28,14 +28,8 @@ p {
   margin-bottom: 1em;
 }
 
-.spaced {
-  margin-top: 20px;
-  margin-bottom: 40px;
-  text-align: center;
-}
-
 /* ===============================
-   Loader
+   Loader (unchanged)
 ================================= */
 .loader {
   position: fixed;
@@ -71,7 +65,7 @@ p {
 }
 
 /* ===============================
-   Navbar
+   Navbar (unchanged)
 ================================= */
 header {
   position: fixed;
@@ -123,42 +117,46 @@ nav a.active::after {
 }
 
 /* ===============================
-   Sections / Hero Headings
+   Hero & Section Fixes
 ================================= */
+.hero,
 .section {
-  padding: 140px 80px 80px; /* offset for fixed navbar */
+  padding-top: calc(100px + 5vw); /* ensures below fixed navbar */
+  padding-left: 5vw;
+  padding-right: 5vw;
+  padding-bottom: 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+h1.page-heading,
+h1.hero-heading {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.hero p {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  margin-top: 1rem;
+  line-height: 1.6;
+}
+
+/* ===============================
+   Hobbies Page Full-Width Strips
+================================= */
+.hobbies-gallery {
+  padding: 120px 5vw;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-h1.page-heading {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 40px;
-}
-
-h2 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 16px;
-}
-
-p {
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 20px;
-}
-
-/* ===============================
-   Hobbies Full-Width Strips
-================================= */
-.hobbies-gallery {
-  padding: 120px 0;
-}
-
 .hobbies-gallery h1 {
   text-align: center;
-  font-size: 2.5rem;
+  font-size: clamp(2rem, 4vw, 2.5rem);
   font-weight: 700;
   margin-bottom: 10px;
 }
@@ -221,22 +219,26 @@ p {
 }
 
 /* ===============================
-   Footer
+   Footer Styling
 ================================= */
 footer {
   width: 100%;
-  padding: 40px 80px;
+  padding: 40px 5vw;
   text-align: center;
   border-top: 1px solid #eee;
   background: #fff;
   font-size: 0.9rem;
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
 }
 
 footer a {
-  color: #000;
-  text-decoration: none;
+  display: inline-block;
   font-weight: 600;
   position: relative;
+  text-decoration: none;
 }
 
 footer a::after {
@@ -269,17 +271,28 @@ footer a:hover::after {
 }
 
 /* ===============================
-   Responsive
+   Responsive Adjustments
 ================================= */
 @media (max-width: 1024px) {
   .hobby-strip {
     height: 250px;
   }
+
   .hobby-text {
     width: 40%;
   }
-  header, footer {
-    padding: 24px 40px;
+
+  .hero,
+  .section,
+  .hobbies-gallery {
+    padding-left: 4vw;
+    padding-right: 4vw;
+    padding-top: calc(120px + 5vw);
+  }
+
+  footer {
+    gap: 40px;
+    padding: 30px 4vw;
   }
 }
 
@@ -297,35 +310,39 @@ footer a:hover::after {
     margin-top: 16px;
   }
 
-  .section, .hobbies-gallery {
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 180px;
+  .hero,
+  .section,
+  .hobbies-gallery {
+    padding-left: 5vw;
+    padding-right: 5vw;
+    padding-top: 220px; /* stacked navbar */
   }
 
-  h1.page-heading {
-    font-size: 2rem;
+  h1.page-heading,
+  h1.hero-heading {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+  }
+
+  footer {
+    gap: 30px;
+    padding: 30px 5vw;
   }
 }
 
 @media (max-width: 480px) {
-  nav {
-    gap: 16px;
+  .hero,
+  .section,
+  .hobbies-gallery {
+    padding-top: 240px;
   }
 
-  nav a {
-    font-size: 0.9rem;
-  }
-
-  h1.page-heading {
-    font-size: 1.6rem;
-  }
-
-  .section, .hobbies-gallery {
-    padding-top: 200px;
+  h1.page-heading,
+  h1.hero-heading {
+    font-size: clamp(1.5rem, 6vw, 2rem);
   }
 
   footer {
-    padding: 20px;
+    gap: 20px;
+    padding: 20px 5vw;
   }
 }
