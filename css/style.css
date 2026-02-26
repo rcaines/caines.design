@@ -7,11 +7,16 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Lato', sans-serif;
   color: #000;
   background: #fff;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 a {
@@ -25,17 +30,13 @@ img {
 }
 
 p {
+  max-width: 650px;
+  font-weight: 300;
   margin-bottom: 1em;
 }
 
-main,
-.section {
-  margin-top: 140px; /* pushes content below navbar */
-  padding: 120px 80px; /* same as original */
-}
-
 /* ===============================
-   Loader (unchanged)
+   Loader
 ================================= */
 .loader {
   position: fixed;
@@ -71,14 +72,14 @@ main,
 }
 
 /* ===============================
-   Navbar (unchanged)
+   Navbar
 ================================= */
 header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 24px 80px;
+  padding: 30px 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -103,14 +104,13 @@ nav a {
   position: relative;
   padding-bottom: 4px;
   color: #000;
-  transition: color 0.3s ease;
 }
 
 nav a::after {
   content: '';
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: -5px;
   width: 0%;
   height: 2px;
   background: #000;
@@ -123,41 +123,50 @@ nav a.active::after {
 }
 
 /* ===============================
-   Hero & Section Styling
+   Hero / Headings
 ================================= */
 .hero {
-  min-height: 80vh;           /* almost full viewport */
-  display: flex;              /* flex for vertical centering */
-  align-items: center;        /* vertical center */
-  justify-content: flex-start; /* horizontal alignment of text */
-  padding: 0 80px;            /* side padding */
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 80px;
 }
 
-.section {
-  padding-top: 180px; /* ensures content below fixed navbar */
-  padding-left: 5vw;
-  padding-right: 5vw;
-  padding-bottom: 80px;
-  max-width: 1400px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-}
-
-h1.hero-heading,
-h1.page-heading {
-  font-size: clamp(2.5rem, 5vw, 4.5rem); /* larger, elegant */
-  font-weight: 300;                       /* light, elegant style */
-  margin-bottom: 40px;                    /* breathing room */
+/* FORCE hero heading to be light and large */
+.hero .hero-heading,
+.hero h1 {
+  font-weight: 300 !important; /* light */
+  font-size: clamp(2.5rem, 5vw, 4.5rem) !important;
   line-height: 1.1;
+  margin-bottom: 40px;
+}
+
+/* general page headings (non-hero) */
+h1.page-heading {
+  font-weight: 300;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1.1;
+  margin-bottom: 40px;
 }
 
 .hero p {
-  max-width: 650px;   /* limits width for readability */
-  font-weight: 300;   /* light weight */
+  max-width: 650px;
+  font-weight: 300;
   font-size: clamp(1rem, 1.8vw, 1.2rem);
   line-height: 1.6;
   margin-top: 1rem;
+}
+
+/* Sections after hero */
+main {
+  padding-top: 140px; /* matches navbar height */
+}
+
+/* Normal section spacing */
+.section {
+  padding: 120px 80px;
+  border-top: 1px solid #eee;
 }
 
 /* ===============================
@@ -186,17 +195,27 @@ h1.page-heading {
   position: relative;
   overflow: hidden;
   width: 100vw;   /* full viewport width */
-  height: 300px;
+  height: 320px;
   cursor: pointer;
   margin-bottom: 40px;
 }
 
 .hobby-strip img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.4s ease; 
+}
+
+.hobby-strip video {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
-  transition: transform 0.5s ease;
+  transition: opacity 0.4s ease;
 }
 
 .hobby-text {
@@ -207,7 +226,7 @@ h1.page-heading {
   height: 100%;
   background: rgba(0,0,0,0.6);
   color: #fff;
-  padding: 20px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -218,8 +237,18 @@ h1.page-heading {
   right: 0;
 }
 
+.hobby-strip video {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .hobby-strip:hover img {
   transform: scale(1.05);
+  opacity: 0;
+}
+
+.hobby-strip:hover video {
+  opacity: 1;
 }
 
 .hobby-text h2 {
@@ -232,9 +261,14 @@ h1.page-heading {
   font-size: 1rem;
   line-height: 1.4;
 }
+/* Responsive */
+@media (max-width: 768px) {
+  .hobby-strip {
+    height: 240px;
+  }
 
 /* ===============================
-   Footer Styling
+   Footer
 ================================= */
 footer {
   width: 100%;
@@ -243,20 +277,23 @@ footer {
   border-top: 1px solid #eee;
   background: #fff;
   font-size: 0.9rem;
-  display: flex;
-  justify-content: center;
-  gap: 80px; /* horizontal spacing between links increased */
-  flex-wrap: wrap; /* wrap on small screens */
 }
 
-footer a {
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 120px; /* wider spacing */
+  flex-wrap: wrap;
+}
+
+.footer-links a {
   display: inline-block;
   font-weight: 600;
   position: relative;
   text-decoration: none;
 }
 
-footer a::after {
+.footer-links a::after {
   content: '';
   position: absolute;
   left: 0;
@@ -267,7 +304,7 @@ footer a::after {
   transition: width 0.3s ease;
 }
 
-footer a:hover::after {
+.footer-links a:hover::after {
   width: 100%;
 }
 
@@ -276,8 +313,8 @@ footer a:hover::after {
 ================================= */
 .fade-up {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(40px);
+  transition: 0.8s ease;
 }
 
 .fade-up.visible {
@@ -288,7 +325,22 @@ footer a:hover::after {
 /* ===============================
    Responsive Adjustments
 ================================= */
+
 @media (max-width: 1024px) {
+
+  .hero {
+    padding: 0 5vw;
+    min-height: 70vh;
+  }
+
+  .section {
+    padding: 100px 5vw;
+  }
+
+  .footer-links {
+    gap: 70px; /* tighter than desktop */
+  }
+
   .hobby-strip {
     height: 250px;
   }
@@ -296,39 +348,34 @@ footer a:hover::after {
   .hobby-text {
     width: 40%;
   }
-
-  .hero,
-  .section {
-    padding-left: 4vw;
-    padding-right: 4vw;
-    padding-top: 160px;
-  }
-
-  footer {
-    gap: 60px;
-    padding: 30px 4vw;
-  }
 }
 
+
 @media (max-width: 768px) {
+
   header {
     flex-direction: column;
     align-items: center;
-    padding: 30px 20px;
+    padding: 20px;
   }
 
   nav {
-    gap: 24px;
+    gap: 20px;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 16px;
+    margin-top: 10px;
   }
 
-  .hero,
+  /* HERO FIX — remove stacked padding */
+  .hero {
+    min-height: 60vh;
+    padding: 120px 5vw 60px 5vw; 
+  }
+
+  /* PAGE HEADINGS FIX */
   .section {
-    padding-left: 5vw;
-    padding-right: 5vw;
-    padding-top: 220px; /* stacked navbar */
+    margin-top: 0;
+    padding: 120px 5vw 60px 5vw;
   }
 
   h1.hero-heading,
@@ -336,25 +383,29 @@ footer a:hover::after {
     font-size: clamp(2rem, 6vw, 3rem);
   }
 
-  footer {
-    gap: 40px;
-    padding: 30px 5vw;
+  .footer-links {
+    gap: 40px;  /* closer spacing */
   }
 }
 
+
 @media (max-width: 480px) {
-  .hero,
+
+  .hero {
+    min-height: 55vh;
+    padding: 110px 6vw 50px 6vw;
+  }
+
   .section {
-    padding-top: 240px;
+    padding: 110px 6vw 50px 6vw;
   }
 
   h1.hero-heading,
   h1.page-heading {
-    font-size: clamp(1.5rem, 7vw, 2.5rem);
+    font-size: clamp(1.8rem, 7vw, 2.4rem);
   }
 
-  footer {
-    gap: 30px;
-    padding: 20px 5vw;
+  .footer-links {
+    gap: 25px;   /* tight and clean on mobile */
   }
 }

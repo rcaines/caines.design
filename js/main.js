@@ -40,3 +40,19 @@ const hobbyStrips = document.querySelectorAll(".hobby-strip");
 hobbyStrips.forEach(strip => {
     appearOnScroll.observe(strip); // reuse the existing IntersectionObserver
 });
+
+// Hover play videos in hobbies section
+const hobbystrips = document.querySelectorAll('.hobby-strip');
+
+hobbystrips.forEach(strip => {
+  const video = strip.querySelector('video');
+
+  strip.addEventListener('mouseenter', () => {
+    video.play();
+  });
+
+  strip.addEventListener('mouseleave', () => {
+    video.pause();
+    video.currentTime = 0;
+  });
+});
